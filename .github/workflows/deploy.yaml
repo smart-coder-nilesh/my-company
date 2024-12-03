@@ -43,8 +43,6 @@ jobs:
 
           git push origin gh-pages --force
           git checkout main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
 
 
 
