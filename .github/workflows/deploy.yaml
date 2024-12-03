@@ -28,11 +28,31 @@ jobs:
         run: npm run build
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: 
+          # Configure Git to use the current GitHub repository
+          git config --global user.name "smart-coder-nilesh"
+          git config --global user.email "mishranilesh1920@gmail.com"
+          
+          # Create a new branch 'gh-pages' and switch to it
+          git checkout --orphan gh-pages
+          
+          # Remove all files from the gh-pages branch
+          git rm -rf .
+          
+          # Copy the build files into the root directory
+          cp -r build/* ./
+
+          # Add and commit the changes
+          git add .
+          git commit -m "Deploy to GitHub Pages"
+
+          # Push the changes to the gh-pages branch
+          git push origin gh-pages --force
+          
+          # Go back to the main branch
+          git checkout main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          branch: gh-pages
 
 
 
